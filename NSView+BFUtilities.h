@@ -9,8 +9,12 @@
 
 @interface NSView (BFUtilities)
 
+///---------------------------------------------------------------------------------------
+/// @name Flattening View Hierarchie
+///---------------------------------------------------------------------------------------
+
 /**
- *  Flattens view+subviews, return NSImage.
+ *  Flatten self + subviews, return proper NSImage.
  */
 -(NSImage *)flattenWithSubviews;
 

@@ -11,7 +11,6 @@
 @interface BFNavigationController ()
 
 -(void)_setViewControllers: (NSArray *)controllers animated: (BOOL)animated;
--(void)_navigationCompletionHandler: (void (^)(void))completionBlock;
 -(void)_navigateFromViewController: (NSViewController *)lastController 
                   toViewController: (NSViewController *)newController 
                           animated: (BOOL)animated
@@ -130,14 +129,14 @@
                           animated: (BOOL)animated
                               push: (BOOL)push
 {
-    CGFloat animationDuration = kPushPopAnimationDuration;
+    CGFloat animationDuration = kBFNavigationControllerPushPopAnimationDuration;
     
     NSRect newControllerStartFrame = self.view.bounds;
     NSRect lastControllerEndFrame = self.view.bounds;
     
     newController.view.autoresizingMask = self.view.autoresizingMask;
     
-    // Call Delegate
+    // Call delegate
     if(_delegate && [_delegate respondsToSelector: @selector(navigationController:willShowViewController:animated:)])
         [_delegate navigationController: self willShowViewController: newController animated: animated];
 
@@ -152,7 +151,7 @@
         // Remove last controller from superview
         [lastController.view removeFromSuperview];
         
-        // We use NSImageViews to cache animating views. Of course we could animate using Core Animation Layers - Do it if you like that.
+        // We use NSImageViews to cache animating views. Of course we could animate using Core Animation layers - Do it if you like that.
         NSImageView *lastControllerImageView = [[NSImageView alloc] initWithFrame: self.view.bounds];
         NSImageView *newControllerImageView = [[NSImageView alloc] initWithFrame: newControllerStartFrame];
         
@@ -169,20 +168,17 @@
         [[newControllerImageView animator] setFrame: self.view.bounds];
         [NSAnimationContext endGrouping];
         
-        void (^completionBlock)(void) = ^{
+        // Could have just used setCompletionHandler: on animation context if it was Lion only.
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, animationDuration * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [lastControllerImageView removeFromSuperview];
             [self.view replaceSubview: newControllerImageView with: newController.view];
             newController.view.frame = self.view.bounds;
             
-            // Call Delegate
+            // Call delegate
             if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
                 [_delegate navigationController: self didShowViewController: newController animated: YES];
-        };
-        
-        // Could have just used setCompletionHandler: on animation context if it was Lion only.
-        [self performSelector: @selector(_navigationCompletionHandler:) 
-                   withObject: completionBlock
-                   afterDelay: animationDuration];
+        });
     }
     else
     {
@@ -190,17 +186,10 @@
         [self.view addSubview: newController.view];
         [lastController.view removeFromSuperview];
         
-        // Call Delegate
+        // Call delegate
         if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
             [_delegate navigationController: self didShowViewController: newController animated: NO];
     }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
--(void)_navigationCompletionHandler: (void (^)(void))completionBlock
-{
-    completionBlock();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
