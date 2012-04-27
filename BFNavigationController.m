@@ -168,7 +168,7 @@
         [[newControllerImageView animator] setFrame: self.view.bounds];
         [NSAnimationContext endGrouping];
         
-        // Could have just used setCompletionHandler: on animation context if it was Lion only.
+        // Could have just called setCompletionHandler: on animation context if it was Lion only.
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, animationDuration * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [lastControllerImageView removeFromSuperview];
