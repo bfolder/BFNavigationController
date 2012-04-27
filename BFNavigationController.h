@@ -68,6 +68,30 @@
 -(void)setViewControllers: (NSArray *)viewControllers animated: (BOOL)animated;
 
 ///---------------------------------------------------------------------------------------
+/// @name Pushing and Popping Stack Items
+///---------------------------------------------------------------------------------------
+
+/**
+ *  Pushes a view controller onto the receiver’s stack and updates the display.
+ */
+-(void)pushViewController: (NSViewController *)viewController animated: (BOOL)animated;
+
+/**
+ *  Pops the top view controller from the navigation stack and updates the display.
+ */
+-(NSViewController *)popViewControllerAnimated: (BOOL)animated;
+
+/**
+ *  Pops all the view controllers on the stack except the root view controller and updates the display.
+ */
+-(NSArray *)popToRootViewControllerAnimated: (BOOL)animated;
+
+/**
+ *  Pops view controllers until the specified view controller is at the top of the navigation stack.
+ */
+-(NSArray *)popToViewController: (NSViewController *)viewController animated: (BOOL)animated;
+
+///---------------------------------------------------------------------------------------
 /// @name Accessing the Delegate
 ///---------------------------------------------------------------------------------------
 
