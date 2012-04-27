@@ -11,10 +11,12 @@
 @interface BFNavigationController ()
 
 -(void)_setViewControllers: (NSArray *)controllers animated: (BOOL)animated;
+-(void)_navigationCompletionHandler: (void (^)(void))completionBlock;
 -(void)_navigateFromViewController: (NSViewController *)lastController 
                   toViewController: (NSViewController *)newController 
                           animated: (BOOL)animated
                               push: (BOOL)push;
+
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,6 +136,10 @@
     NSRect lastControllerEndFrame = self.view.bounds;
     
     newController.view.autoresizingMask = self.view.autoresizingMask;
+    
+    // Call Delegate
+    if(_delegate && [_delegate respondsToSelector: @selector(navigationController:willShowViewController:animated:)])
+        [_delegate navigationController: self willShowViewController: newController animated: animated];
 
     if(animated)
     {
@@ -159,21 +165,42 @@
         // Animation 'block' - Using default timing function
         [NSAnimationContext beginGrouping];
         [[NSAnimationContext currentContext] setDuration: animationDuration];
-        [[NSAnimationContext currentContext] setCompletionHandler: ^{
-            [lastControllerImageView removeFromSuperview];
-            [self.view replaceSubview: newControllerImageView with: newController.view];
-            newController.view.frame = self.view.bounds;
-        }];
         [[lastControllerImageView animator] setFrame: lastControllerEndFrame];
         [[newControllerImageView animator] setFrame: self.view.bounds];
         [NSAnimationContext endGrouping];
+        
+        void (^completionBlock)(void) = ^{
+            [lastControllerImageView removeFromSuperview];
+            [self.view replaceSubview: newControllerImageView with: newController.view];
+            newController.view.frame = self.view.bounds;
+            
+            // Call Delegate
+            if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
+                [_delegate navigationController: self didShowViewController: newController animated: YES];
+        };
+        
+        // Could have just used setCompletionHandler: on animation context if it was Lion only.
+        [self performSelector: @selector(_navigationCompletionHandler:) 
+                   withObject: completionBlock
+                   afterDelay: animationDuration];
     }
     else
     {
         newController.view.frame = newControllerStartFrame;
         [self.view addSubview: newController.view];
         [lastController.view removeFromSuperview];
+        
+        // Call Delegate
+        if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
+            [_delegate navigationController: self didShowViewController: newController animated: NO];
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)_navigationCompletionHandler: (void (^)(void))completionBlock
+{
+    completionBlock();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
