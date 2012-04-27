@@ -13,6 +13,7 @@
 		60CFF3811549E4F70059C143 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 60CFF37F1549E4F70059C143 /* Credits.rtf */; };
 		60CFF3841549E4F70059C143 /* BFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFF3831549E4F70059C143 /* BFAppDelegate.m */; };
 		60CFF3871549E4F70059C143 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CFF3851549E4F70059C143 /* MainMenu.xib */; };
+		60CFF3971549E87A0059C143 /* BFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFF3961549E8790059C143 /* BFNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		60CFF3821549E4F70059C143 /* BFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFAppDelegate.h; sourceTree = "<group>"; };
 		60CFF3831549E4F70059C143 /* BFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFAppDelegate.m; sourceTree = "<group>"; };
 		60CFF3861549E4F70059C143 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		60CFF3951549E8790059C143 /* BFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFNavigationController.h; path = ../../BFNavigationController.h; sourceTree = "<group>"; };
+		60CFF3961549E8790059C143 /* BFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFNavigationController.m; path = ../../BFNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,7 @@
 		60CFF3761549E4F70059C143 /* BFNavigationControllerExample */ = {
 			isa = PBXGroup;
 			children = (
+				60CFF3981549E88A0059C143 /* BFNavigationController */,
 				60CFF3821549E4F70059C143 /* BFAppDelegate.h */,
 				60CFF3831549E4F70059C143 /* BFAppDelegate.m */,
 				60CFF3851549E4F70059C143 /* MainMenu.xib */,
@@ -100,6 +104,15 @@
 				60CFF37F1549E4F70059C143 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		60CFF3981549E88A0059C143 /* BFNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				60CFF3951549E8790059C143 /* BFNavigationController.h */,
+				60CFF3961549E8790059C143 /* BFNavigationController.m */,
+			);
+			name = BFNavigationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +182,7 @@
 			files = (
 				60CFF37D1549E4F70059C143 /* main.m in Sources */,
 				60CFF3841549E4F70059C143 /* BFAppDelegate.m in Sources */,
+				60CFF3971549E87A0059C143 /* BFNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
