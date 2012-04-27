@@ -14,5 +14,7 @@
 
 -(IBAction)pushNewController: (id)sender;
 -(IBAction)popController: (id)sender;
+-(IBAction)popToRootController: (id)sender;
+-(IBAction)newStack: (id)sender;
 
 @end

@@ -18,6 +18,7 @@
 		60E6942B154ABFB4002B145F /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E69429154ABFB4002B145F /* TestViewController.xib */; };
 		60E69433154AC2E6002B145F /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E69432154AC2E6002B145F /* TestView.m */; };
 		60E69435154AC727002B145F /* ControlWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E69434154AC727002B145F /* ControlWindow.xib */; };
+		60E6943C154ACEF3002B145F /* NSView+BFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E6943B154ACEF3002B145F /* NSView+BFUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		60E69431154AC2E6002B145F /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		60E69432154AC2E6002B145F /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		60E69434154AC727002B145F /* ControlWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlWindow.xib; sourceTree = "<group>"; };
+		60E6943A154ACEF3002B145F /* NSView+BFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+BFUtilities.h"; path = "../../NSView+BFUtilities.h"; sourceTree = "<group>"; };
+		60E6943B154ACEF3002B145F /* NSView+BFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+BFUtilities.m"; path = "../../NSView+BFUtilities.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 			children = (
 				60CFF3951549E8790059C143 /* BFNavigationController.h */,
 				60CFF3961549E8790059C143 /* BFNavigationController.m */,
+				60E6943A154ACEF3002B145F /* NSView+BFUtilities.h */,
+				60E6943B154ACEF3002B145F /* NSView+BFUtilities.m */,
 			);
 			name = BFNavigationController;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				60CFF3971549E87A0059C143 /* BFNavigationController.m in Sources */,
 				60E6942A154ABFB4002B145F /* TestViewController.m in Sources */,
 				60E69433154AC2E6002B145F /* TestView.m in Sources */,
+				60E6943C154ACEF3002B145F /* NSView+BFUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

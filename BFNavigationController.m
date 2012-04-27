@@ -6,6 +6,7 @@
 //
 
 #import "BFNavigationController.h"
+#import "NSView+BFUtilities.h"
 
 @interface BFNavigationController ()
 
@@ -46,7 +47,7 @@
 {
     if(self = [self initWithNibName: nil bundle: nil])
     {
-        // Create View
+        // Create view
         self.view = [[NSView alloc] initWithFrame: aFrame];
         self.view.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable | NSViewHeightSizable;
         
@@ -56,6 +57,7 @@
         
         [_viewControllers addObject: controller];
         controller.view.autoresizingMask = self.view.autoresizingMask;
+        controller.view.frame = self.view.bounds;
         [self.view addSubview: controller.view];
     }
     
@@ -107,15 +109,16 @@
 
 -(void)_setViewControllers: (NSArray *)controllers animated: (BOOL)animated
 {
-    // Stack Operations
-    NSViewController *visibleController = [_viewControllers lastObject];
-    _viewControllers = [controllers mutableCopy];
+    NSViewController *visibleController = self.visibleViewController;
+    NSViewController *newTopmostController = [controllers lastObject];
     
     // Decide if pop or push - If visible controller already in new stack, but is not topmost, use pop otherwise push
-    BOOL push = !([controllers containsObject: _viewControllers] && [controllers indexOfObject: _viewControllers] < [controllers count] - 1);
-      
+    BOOL push = !([_viewControllers containsObject: newTopmostController] && [_viewControllers indexOfObject: newTopmostController] < [_viewControllers count] - 1);
+    
+    _viewControllers = [controllers mutableCopy];
+    
     // Navigate
-    [self _navigateFromViewController: visibleController toViewController: [_viewControllers lastObject] animated: animated push: push];
+    [self _navigateFromViewController: visibleController toViewController: newTopmostController animated: animated push: push];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,13 +130,50 @@
 {
     CGFloat animationDuration = kPushPopAnimationDuration;
     
-    // Perform basic setup tasks
-    NSRect newControllerStartFrame = self.view.frame;
-    newControllerStartFrame.origin.x = push ? newControllerStartFrame.size.width : -newControllerStartFrame.size.width;
+    NSRect newControllerStartFrame = self.view.bounds;
+    NSRect lastControllerEndFrame = self.view.bounds;
     
     newController.view.autoresizingMask = self.view.autoresizingMask;
-    newController.view.frame = newControllerStartFrame;
-    
+
+    if(animated)
+    {
+        newControllerStartFrame.origin.x = push ? newControllerStartFrame.size.width : -newControllerStartFrame.size.width;
+        lastControllerEndFrame.origin.x = push ? -lastControllerEndFrame.size.width : lastControllerEndFrame.size.width;
+        
+        // Assign start frame
+        newController.view.frame = newControllerStartFrame;
+        
+        // Remove last controller from superview
+        [lastController.view removeFromSuperview];
+        
+        // We use NSImageViews to cache animating views. Of course we could animate using Core Animation Layers - Do it if you like that.
+        NSImageView *lastControllerImageView = [[NSImageView alloc] initWithFrame: self.view.bounds];
+        NSImageView *newControllerImageView = [[NSImageView alloc] initWithFrame: newControllerStartFrame];
+        
+        [lastControllerImageView setImage: [lastController.view flattenWithSubviews]];
+        [newControllerImageView setImage: [newController.view flattenWithSubviews]];
+        
+        [self.view addSubview: lastControllerImageView];
+        [self.view addSubview: newControllerImageView];
+        
+        // Animation 'block' - Using default timing function
+        [NSAnimationContext beginGrouping];
+        [[NSAnimationContext currentContext] setDuration: animationDuration];
+        [[NSAnimationContext currentContext] setCompletionHandler: ^{
+            [lastControllerImageView removeFromSuperview];
+            [self.view replaceSubview: newControllerImageView with: newController.view];
+            newController.view.frame = self.view.bounds;
+        }];
+        [[lastControllerImageView animator] setFrame: lastControllerEndFrame];
+        [[newControllerImageView animator] setFrame: self.view.bounds];
+        [NSAnimationContext endGrouping];
+    }
+    else
+    {
+        newController.view.frame = newControllerStartFrame;
+        [self.view addSubview: newController.view];
+        [lastController.view removeFromSuperview];
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,8 +183,7 @@
 
 -(void)pushViewController: (NSViewController *)viewController animated: (BOOL)animated
 {
-    // Stack Operations
-    NSViewController *visibleController = [_viewControllers lastObject];
+    NSViewController *visibleController = self.visibleViewController;
     [_viewControllers addObject: viewController];
     
     // Navigate
@@ -155,7 +194,10 @@
 
 -(NSViewController *)popViewControllerAnimated: (BOOL)animated
 {
-    // Stack Operations
+    // Don't pop last controller
+    if([_viewControllers count] == 1)
+        return nil;
+    
     NSViewController *controller = [_viewControllers lastObject];
     [_viewControllers removeLastObject];
     
@@ -170,14 +212,17 @@
 
 -(NSArray *)popToRootViewControllerAnimated: (BOOL)animated
 {
-    // Stack Operations
+    // Don't pop last controller
+    if([_viewControllers count] == 1)
+        return nil;
+    
     NSViewController *rootController = [_viewControllers objectAtIndex: 0];
     [_viewControllers removeObject: rootController];
     NSArray *dispControllers = [NSArray arrayWithArray: _viewControllers];
-    _viewControllers = [NSArray arrayWithObject: rootController];
+    _viewControllers = [NSMutableArray arrayWithObject: rootController];
     
     // Navigate
-    [self _navigateFromViewController: rootController toViewController: [dispControllers lastObject] animated: animated push: NO];
+    [self _navigateFromViewController: [dispControllers lastObject] toViewController: rootController animated: animated push: NO];
     
     // Return popping controller stack
     return dispControllers;
@@ -190,15 +235,19 @@
     if(![_viewControllers containsObject: viewController])
         return nil;
     
-    // Stack Operations
+    NSViewController *visibleController = self.visibleViewController;
     NSUInteger index = [_viewControllers indexOfObject: viewController];
-    NSUInteger length = index - [_viewControllers count];
-    NSRange range = NSMakeRange(index, length);
+    NSUInteger length = [_viewControllers count] - (index + 1);
+    NSRange range = NSMakeRange(index + 1, length);
     NSArray *dispControllers = [_viewControllers subarrayWithRange: range];
     [_viewControllers removeObjectsInArray: dispControllers];
     
+    // Don't pop last controller
+    if(visibleController == viewController)
+        return nil;
+    
     // Navigate
-    [self _navigateFromViewController: [dispControllers lastObject] toViewController: viewController animated: animated push: NO];
+    [self _navigateFromViewController: visibleController toViewController: viewController animated: animated push: NO];
     
     // Return popping controller stack
     return dispControllers;
