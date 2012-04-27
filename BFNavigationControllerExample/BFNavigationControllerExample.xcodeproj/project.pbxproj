@@ -14,6 +14,10 @@
 		60CFF3841549E4F70059C143 /* BFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFF3831549E4F70059C143 /* BFAppDelegate.m */; };
 		60CFF3871549E4F70059C143 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CFF3851549E4F70059C143 /* MainMenu.xib */; };
 		60CFF3971549E87A0059C143 /* BFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFF3961549E8790059C143 /* BFNavigationController.m */; };
+		60E6942A154ABFB4002B145F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E69428154ABFB4002B145F /* TestViewController.m */; };
+		60E6942B154ABFB4002B145F /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E69429154ABFB4002B145F /* TestViewController.xib */; };
+		60E69433154AC2E6002B145F /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E69432154AC2E6002B145F /* TestView.m */; };
+		60E69435154AC727002B145F /* ControlWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E69434154AC727002B145F /* ControlWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,12 @@
 		60CFF3861549E4F70059C143 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		60CFF3951549E8790059C143 /* BFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFNavigationController.h; path = ../../BFNavigationController.h; sourceTree = "<group>"; };
 		60CFF3961549E8790059C143 /* BFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFNavigationController.m; path = ../../BFNavigationController.m; sourceTree = "<group>"; };
+		60E69427154ABFB4002B145F /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		60E69428154ABFB4002B145F /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		60E69429154ABFB4002B145F /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
+		60E69431154AC2E6002B145F /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		60E69432154AC2E6002B145F /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		60E69434154AC727002B145F /* ControlWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +98,13 @@
 				60CFF3981549E88A0059C143 /* BFNavigationController */,
 				60CFF3821549E4F70059C143 /* BFAppDelegate.h */,
 				60CFF3831549E4F70059C143 /* BFAppDelegate.m */,
+				60E69427154ABFB4002B145F /* TestViewController.h */,
+				60E69428154ABFB4002B145F /* TestViewController.m */,
+				60E69431154AC2E6002B145F /* TestView.h */,
+				60E69432154AC2E6002B145F /* TestView.m */,
+				60E69429154ABFB4002B145F /* TestViewController.xib */,
 				60CFF3851549E4F70059C143 /* MainMenu.xib */,
+				60E69434154AC727002B145F /* ControlWindow.xib */,
 				60CFF3771549E4F70059C143 /* Supporting Files */,
 			);
 			path = BFNavigationControllerExample;
@@ -170,6 +186,8 @@
 				60CFF37B1549E4F70059C143 /* InfoPlist.strings in Resources */,
 				60CFF3811549E4F70059C143 /* Credits.rtf in Resources */,
 				60CFF3871549E4F70059C143 /* MainMenu.xib in Resources */,
+				60E6942B154ABFB4002B145F /* TestViewController.xib in Resources */,
+				60E69435154AC727002B145F /* ControlWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +201,8 @@
 				60CFF37D1549E4F70059C143 /* main.m in Sources */,
 				60CFF3841549E4F70059C143 /* BFAppDelegate.m in Sources */,
 				60CFF3971549E87A0059C143 /* BFNavigationController.m in Sources */,
+				60E6942A154ABFB4002B145F /* TestViewController.m in Sources */,
+				60E69433154AC2E6002B145F /* TestView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +324,7 @@
 				60CFF38C1549E4F70059C143 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

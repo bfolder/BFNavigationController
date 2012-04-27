@@ -42,15 +42,21 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
--(id)initWithRootViewController: (NSViewController *)controller
+-(id)initWithFrame: (NSRect)aFrame rootViewController: (NSViewController *)controller
 {
     if(self = [self initWithNibName: nil bundle: nil])
     {
-        // Add Dummy Controller if none provided
+        // Create View
+        self.view = [[NSView alloc] initWithFrame: aFrame];
+        self.view.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable | NSViewHeightSizable;
+        
+        // Add dummy controller if none provided
         if(!controller)
-           controller = [[NSViewController alloc] init];
-            
+            controller = [[NSViewController alloc] init];
+        
         [_viewControllers addObject: controller];
+        controller.view.autoresizingMask = self.view.autoresizingMask;
+        [self.view addSubview: controller.view];
     }
     
     return self;
@@ -105,7 +111,7 @@
     NSViewController *visibleController = [_viewControllers lastObject];
     _viewControllers = [controllers mutableCopy];
     
-    // Decide if pop or push, if new visible controller already in new stack, but is not topmost, use pop, otherwise push
+    // Decide if pop or push - If visible controller already in new stack, but is not topmost, use pop otherwise push
     BOOL push = !([controllers containsObject: _viewControllers] && [controllers indexOfObject: _viewControllers] < [controllers count] - 1);
       
     // Navigate
@@ -119,7 +125,15 @@
                           animated: (BOOL)animated
                               push: (BOOL)push
 {
-        
+    CGFloat animationDuration = kPushPopAnimationDuration;
+    
+    // Perform basic setup tasks
+    NSRect newControllerStartFrame = self.view.frame;
+    newControllerStartFrame.origin.x = push ? newControllerStartFrame.size.width : -newControllerStartFrame.size.width;
+    
+    newController.view.autoresizingMask = self.view.autoresizingMask;
+    newController.view.frame = newControllerStartFrame;
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

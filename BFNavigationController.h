@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define kPushPopAnimationDuration 0.15
+
 @class BFNavigationController;
 
 @protocol BFNavigationControllerDelegate <NSObject>
@@ -41,7 +43,7 @@
 /**
  *  Initializes and returns a newly created navigation controller.
  */
--(id)initWithRootViewController: (NSViewController *)controller;
+-(id)initWithFrame: (NSRect)frame rootViewController: (NSViewController *)controller;
 
 ///---------------------------------------------------------------------------------------
 /// @name Accessing Items on the Navigation Stack

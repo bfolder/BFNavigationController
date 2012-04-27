@@ -12,4 +12,7 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+-(IBAction)pushNewController: (id)sender;
+-(IBAction)popController: (id)sender;
+
 @end
