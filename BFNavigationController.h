@@ -7,8 +7,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kBFNavigationControllerPushPopAnimationDuration 0.2
-
 @class BFNavigationController;
 
 @protocol BFNavigationControllerDelegate <NSObject>

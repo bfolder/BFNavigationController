@@ -8,6 +8,10 @@
 #import "BFNavigationController.h"
 #import "NSView+BFUtilities.h"
 
+static const CGFloat kPushPopAnimationDuration = 0.2;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 @interface BFNavigationController ()
 
 -(void)_setViewControllers: (NSArray *)controllers animated: (BOOL)animated;
@@ -129,8 +133,6 @@
                           animated: (BOOL)animated
                               push: (BOOL)push
 {
-    CGFloat animationDuration = kBFNavigationControllerPushPopAnimationDuration;
-    
     NSRect newControllerStartFrame = self.view.bounds;
     NSRect lastControllerEndFrame = self.view.bounds;
     
@@ -163,13 +165,13 @@
         
         // Animation 'block' - Using default timing function
         [NSAnimationContext beginGrouping];
-        [[NSAnimationContext currentContext] setDuration: animationDuration];
+        [[NSAnimationContext currentContext] setDuration: kPushPopAnimationDuration];
         [[lastControllerImageView animator] setFrame: lastControllerEndFrame];
         [[newControllerImageView animator] setFrame: self.view.bounds];
         [NSAnimationContext endGrouping];
         
         // Could have just called setCompletionHandler: on animation context if it was Lion only.
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, animationDuration * NSEC_PER_SEC);
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, kPushPopAnimationDuration * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [lastControllerImageView removeFromSuperview];
             [self.view replaceSubview: newControllerImageView with: newController.view];
