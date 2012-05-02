@@ -254,15 +254,16 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         return nil;
     
     NSViewController *visibleController = self.visibleViewController;
+    
+    // Don't pop last controller
+    if(visibleController == viewController)
+        return nil;
+    
     NSUInteger index = [_viewControllers indexOfObject: viewController];
     NSUInteger length = [_viewControllers count] - (index + 1);
     NSRange range = NSMakeRange(index + 1, length);
     NSArray *dispControllers = [_viewControllers subarrayWithRange: range];
     [_viewControllers removeObjectsInArray: dispControllers];
-    
-    // Don't pop last controller
-    if(visibleController == viewController)
-        return nil;
     
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: viewController animated: animated push: NO];
