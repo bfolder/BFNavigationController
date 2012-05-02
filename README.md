@@ -5,6 +5,13 @@ This is basically an approach to bring the popular UINavigationController from i
 ---
 ## How it works
 
+BFNavigationController is easy to use and works almost like a UINavigationController. 
+
+Navigation- and Toolbars haven't been implemented yet. However, you can easily hook in some custom bars. 
+Setting a BFNavigationControllerDelegate and implementing the methods `-navigationController:willShowViewController:animated:` and `-navigationController:didShowViewController:animated:` 
+could be a perfect way to custom (bar) behaviours.
+
+
 ---
 ### Licensing
 
