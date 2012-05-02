@@ -19,6 +19,10 @@
     NSRect fBounds = bounds;
     NSPoint offset = NSZeroPoint;
     
+    // Don't draw anything if zero size
+    if(NSEqualSizes(NSZeroSize, size))
+        return nil;
+    
     NSScrollView *hScrollView = self.enclosingScrollView;
      
     // Check if there is an enclosing scrollview

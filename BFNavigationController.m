@@ -38,19 +38,14 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 
 -(id)initWithNibName: (NSString *)nibNameOrNil bundle: (NSBundle *)nibBundleOrNil
 {
-    if(self = [super initWithNibName: nibNameOrNil bundle: nibBundleOrNil]) 
-    {
-        _viewControllers = [NSMutableArray array];
-    }
-    
-    return self;
+    return [self initWithFrame: NSZeroRect rootViewController: nil];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(id)initWithFrame: (NSRect)aFrame rootViewController: (NSViewController *)controller
 {
-    if(self = [self initWithNibName: nil bundle: nil])
+    if(self = [super initWithNibName: nil bundle: nil])
     {
         // Create view
         self.view = [[NSView alloc] initWithFrame: aFrame];
@@ -58,8 +53,12 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         
         // Add dummy controller if none provided
         if(!controller)
+        {
             controller = [[NSViewController alloc] init];
+            controller.view = [[NSView alloc] initWithFrame: aFrame];
+        }
         
+        _viewControllers = [NSMutableArray array];
         [_viewControllers addObject: controller];
         controller.view.autoresizingMask = self.view.autoresizingMask;
         controller.view.frame = self.view.bounds;
