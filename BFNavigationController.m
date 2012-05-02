@@ -232,7 +232,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 {
     // Don't pop last controller
     if([_viewControllers count] == 1)
-        return nil;
+        return [NSArray array];
     
     NSViewController *rootController = [_viewControllers objectAtIndex: 0];
     [_viewControllers removeObject: rootController];
@@ -250,14 +250,11 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 
 -(NSArray *)popToViewController: (NSViewController *)viewController animated: (BOOL)animated
 {
-    if(![_viewControllers containsObject: viewController])
-        return nil;
-    
     NSViewController *visibleController = self.visibleViewController;
     
     // Don't pop last controller
-    if(visibleController == viewController)
-        return nil;
+    if(![_viewControllers containsObject: viewController] || visibleController == viewController)
+        return [NSArray array];
     
     NSUInteger index = [_viewControllers indexOfObject: viewController];
     NSUInteger length = [_viewControllers count] - (index + 1);
