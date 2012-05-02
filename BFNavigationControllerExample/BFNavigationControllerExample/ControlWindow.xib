@@ -128,7 +128,7 @@
 						<object class="NSButton" id="336603160">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{74, 57}, {126, 32}}</string>
+							<string key="NSFrame">{{73, 57}, {128, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="858297630"/>
@@ -137,7 +137,7 @@
 							<object class="NSButtonCell" key="NSCell" id="1067130799">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Set new stack</string>
+								<string key="NSContents">Set New Stack</string>
 								<reference key="NSSupport" ref="144759989"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="336603160"/>
