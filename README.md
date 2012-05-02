@@ -1,16 +1,23 @@
 ### Readme
 
-This is basically an approach to bring the popular UINavigationController from iOS to Mac OS X.
+This is basically an approach to bring the popular UINavigationController to Mac OS X.
 
 ---
 ## How it works
 
-BFNavigationController is easy to use and works almost like a UINavigationController. 
+BFNavigationController is easy to use and works almost exactly like a UINavigationController. All method names (and respective functionalities) have been derived from UINavigationController. You can therefore just look into 
+Apple's UIKit online documentation (http://developer.apple.com/library/ios/#documentation/uikit/reference/UINavigationController_Class/Reference/Reference.html) for further references.
 
-Navigation- and Toolbars haven't been implemented yet. However, you can easily hook in some custom bars. 
+In contrast to their iOS counterparts, Mac apps should of course be more flexible when it comes to custom window sizes and layouts. Hence, you can intialize your BFNavigationController by providing an NSRect:
+
+
+	_navigationController = [[BFNavigationController alloc] initWithFrame: YOUR_RECT rootViewController: YOUR_VIEW_CONTROLLER];
+	[_window.contentView addSubview: _navigationController.view];
+
+
+Navigation- and toolbars haven't been implemented yet. However, you can easily hook in some custom bars. 
 Setting a BFNavigationControllerDelegate and implementing the methods `-navigationController:willShowViewController:animated:` and `-navigationController:didShowViewController:animated:` 
-could be a perfect way to custom (bar) behaviours.
-
+could be the perfect way to do this.
 
 ---
 ### Licensing
