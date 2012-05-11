@@ -6,6 +6,7 @@
 //
 
 #import "BFNavigationController.h"
+#import "BFViewController.h"
 #import "NSView+BFUtilities.h"
 
 static const CGFloat kPushPopAnimationDuration = 0.2;
@@ -140,7 +141,31 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     // Call delegate
     if(_delegate && [_delegate respondsToSelector: @selector(navigationController:willShowViewController:animated:)])
         [_delegate navigationController: self willShowViewController: newController animated: animated];
+    
+    // New controller will appear
+    if([newController respondsToSelector: @selector(viewWillAppear:)])
+        [(id<BFViewController>)newController viewWillAppear: animated];
 
+    // Last controller will disappear
+    if([lastController respondsToSelector: @selector(viewWillDisappear:)])
+        [(id<BFViewController>)lastController viewWillDisappear: animated];
+    
+    // Completion inline Block
+    void(^navigationCompleted)(BOOL) = ^(BOOL animated){
+        
+        // Call delegate
+        if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
+            [_delegate navigationController: self didShowViewController: newController animated: animated];
+        
+        // New controller did appear
+        if([newController respondsToSelector: @selector(viewDidAppear:)])
+            [(id<BFViewController>)newController viewDidAppear: animated];
+        
+        // Last controller did disappear
+        if([lastController respondsToSelector: @selector(viewDidDisappear:)])
+            [(id<BFViewController>)lastController viewDidDisappear: animated];
+    };
+    
     if(animated)
     {
         newControllerStartFrame.origin.x = push ? newControllerStartFrame.size.width : -newControllerStartFrame.size.width;
@@ -172,13 +197,11 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         // Could have just called setCompletionHandler: on animation context if it was Lion only.
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, kPushPopAnimationDuration * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
             [lastControllerImageView removeFromSuperview];
             [self.view replaceSubview: newControllerImageView with: newController.view];
             newController.view.frame = self.view.bounds;
-            
-            // Call delegate
-            if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
-                [_delegate navigationController: self didShowViewController: newController animated: YES];
+            navigationCompleted(animated);
         });
     }
     else
@@ -186,10 +209,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         newController.view.frame = newControllerStartFrame;
         [self.view addSubview: newController.view];
         [lastController.view removeFromSuperview];
-        
-        // Call delegate
-        if(_delegate && [_delegate respondsToSelector: @selector(navigationController:didShowViewController:animated:)])
-            [_delegate navigationController: self didShowViewController: newController animated: NO];
+        navigationCompleted(animated);
     }
 }
 

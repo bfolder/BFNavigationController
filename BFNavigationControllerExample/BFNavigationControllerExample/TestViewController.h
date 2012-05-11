@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BFViewController.h"
 
-@interface TestViewController : NSViewController
+@interface TestViewController : NSViewController <BFViewController>
 
 @property (nonatomic, assign)IBOutlet NSTextField *label;
 
