@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		609F02E5155D376D00E37C6C /* BFViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFViewController.h; sourceTree = "<group>"; };
+		609F02E7155D3D8E00E37C6C /* BFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFViewController.h; path = ../../BFViewController.h; sourceTree = "<group>"; };
 		60CFF36C1549E4F70059C143 /* BFNavigationControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BFNavigationControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFF3701549E4F70059C143 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		60CFF3731549E4F70059C143 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -129,7 +129,7 @@
 		60CFF3981549E88A0059C143 /* BFNavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				609F02E5155D376D00E37C6C /* BFViewController.h */,
+				609F02E7155D3D8E00E37C6C /* BFViewController.h */,
 				60CFF3951549E8790059C143 /* BFNavigationController.h */,
 				60CFF3961549E8790059C143 /* BFNavigationController.m */,
 				60E6943A154ACEF3002B145F /* NSView+BFUtilities.h */,
