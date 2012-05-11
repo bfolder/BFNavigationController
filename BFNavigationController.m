@@ -65,7 +65,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         controller.view.frame = self.view.bounds;
         [self.view addSubview: controller.view];
         
-        // Init controller will appear on startup
+        // Initial controller will appear on startup
         if([controller respondsToSelector: @selector(viewWillAppear:)])
             [(id<BFViewController>)controller viewWillAppear: NO];
     }
