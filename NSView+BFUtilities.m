@@ -48,6 +48,7 @@
     [image lockFocus];
     [bitmapRep drawAtPoint: fBounds.origin];
     [image unlockFocus];
+    bitmapRep = nil;
     
     return image;
 }

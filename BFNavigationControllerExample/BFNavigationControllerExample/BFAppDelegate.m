@@ -15,7 +15,6 @@
 {
     BFNavigationController *_navigationController;
     NSWindowController *_controlWindowController;
-
 }
 
 @synthesize window = _window;
