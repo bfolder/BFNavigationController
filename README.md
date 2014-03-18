@@ -3,6 +3,15 @@
 This is basically an approach to bring the popular UINavigationController to Mac OS X.
 
 ---
+
+### Installation
+
+Include all files manually or add the following to your podfile:
+
+```Ruby
+pod 'BFNavigationController'
+```
+
 ## How it works
 
 BFNavigationController is easy to use and works almost exactly like a UINavigationController. All method names (and respective functionalities) have been derived from UINavigationController. You can therefore just look into 
