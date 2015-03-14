@@ -8,6 +8,13 @@
 #import "BFNavigationController.h"
 #import "BFViewController.h"
 #import "NSView+BFUtilities.h"
+#import "NSViewController+BFViewController.h"
+
+@interface NSViewController ()
+
+@property (nonatomic, weak) BFNavigationController *navigationController;
+
+@end
 
 static const CGFloat kPushPopAnimationDuration = 0.2;
 
@@ -48,6 +55,8 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 {
     if(self = [super initWithNibName: nil bundle: nil])
     {
+        controller.navigationController = self;
+        
         // Create view
         self.view = [[NSView alloc] initWithFrame: aFrame];
         self.view.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable | NSViewHeightSizable;
@@ -121,10 +130,20 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *visibleController = self.visibleViewController;
     NSViewController *newTopmostController = [controllers lastObject];
     
+    for (NSViewController *vc in _viewControllers)
+    {
+        vc.navigationController = nil;
+    }
+    
     // Decide if pop or push - If visible controller already in new stack, but is not topmost, use pop otherwise push
     BOOL push = !([_viewControllers containsObject: newTopmostController] && [_viewControllers indexOfObject: newTopmostController] < [_viewControllers count] - 1);
     
     _viewControllers = [controllers mutableCopy];
+    
+    for (NSViewController *vc in _viewControllers)
+    {
+        vc.navigationController = self;
+    }
     
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: newTopmostController animated: animated push: push];
@@ -227,10 +246,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *visibleController = self.visibleViewController;
     [_viewControllers addObject: viewController];
     
-    if ([viewController respondsToSelector: @selector(setNavigationController:)])
-    {
-        [viewController performSelector: @selector(setNavigationController:) withObject: self];
-    }
+    viewController.navigationController = self;
     
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: [_viewControllers lastObject] animated: animated push: YES];
@@ -247,10 +263,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *controller = [_viewControllers lastObject];
     [_viewControllers removeLastObject];
     
-    if ([controller respondsToSelector: @selector(setNavigationController:)])
-    {
-        [controller performSelector: @selector(setNavigationController:) withObject: nil];
-    }
+    controller.navigationController = nil;
     
     // Navigate
     [self _navigateFromViewController: controller toViewController: [_viewControllers lastObject] animated: animated push: NO];
@@ -274,10 +287,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     for (NSViewController *vc in dispControllers)
     {
-        if ([vc respondsToSelector: @selector(setNavigationController:)])
-        {
-            [vc performSelector: @selector(setNavigationController:) withObject: nil];
-        }
+        vc.navigationController = nil;
     }
     
     // Navigate
@@ -305,10 +315,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     for (NSViewController *vc in dispControllers)
     {
-        if ([vc respondsToSelector: @selector(setNavigationController:)])
-        {
-            [vc performSelector: @selector(setNavigationController:) withObject: nil];
-        }
+        vc.navigationController = nil;
     }
     
     // Navigate
