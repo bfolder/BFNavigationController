@@ -227,6 +227,11 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *visibleController = self.visibleViewController;
     [_viewControllers addObject: viewController];
     
+    if ([viewController respondsToSelector: @selector(setNavigationController:)])
+    {
+        [viewController performSelector: @selector(setNavigationController:) withObject: self];
+    }
+    
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: [_viewControllers lastObject] animated: animated push: YES];
 }
@@ -241,6 +246,11 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     NSViewController *controller = [_viewControllers lastObject];
     [_viewControllers removeLastObject];
+    
+    if ([controller respondsToSelector: @selector(setNavigationController:)])
+    {
+        [controller performSelector: @selector(setNavigationController:) withObject: nil];
+    }
     
     // Navigate
     [self _navigateFromViewController: controller toViewController: [_viewControllers lastObject] animated: animated push: NO];
@@ -261,6 +271,14 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     [_viewControllers removeObject: rootController];
     NSArray *dispControllers = [NSArray arrayWithArray: _viewControllers];
     _viewControllers = [NSMutableArray arrayWithObject: rootController];
+    
+    for (NSViewController *vc in dispControllers)
+    {
+        if ([vc respondsToSelector: @selector(setNavigationController:)])
+        {
+            [vc performSelector: @selector(setNavigationController:) withObject: nil];
+        }
+    }
     
     // Navigate
     [self _navigateFromViewController: [dispControllers lastObject] toViewController: rootController animated: animated push: NO];
@@ -284,6 +302,14 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSRange range = NSMakeRange(index + 1, length);
     NSArray *dispControllers = [_viewControllers subarrayWithRange: range];
     [_viewControllers removeObjectsInArray: dispControllers];
+    
+    for (NSViewController *vc in dispControllers)
+    {
+        if ([vc respondsToSelector: @selector(setNavigationController:)])
+        {
+            [vc performSelector: @selector(setNavigationController:) withObject: nil];
+        }
+    }
     
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: viewController animated: animated push: NO];
