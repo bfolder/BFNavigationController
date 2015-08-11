@@ -11,6 +11,7 @@
 
 @interface TestViewController : NSViewController <BFViewController>
 
+@property (nonatomic, assign)IBOutlet NSButton *pushItButton;
 @property (nonatomic, assign)IBOutlet NSTextField *label;
 
 @end
