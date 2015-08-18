@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">14E46</string>
+		<string key="IBDocument.SystemVersion">14F27</string>
 		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
 		<string key="IBDocument.AppKitVersion">1348.17</string>
 		<string key="IBDocument.HIToolboxVersion">758.70</string>
@@ -67,37 +67,13 @@
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
-					<object class="NSButton" id="360288013">
-						<reference key="NSNextResponder" ref="762011810"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{119, 249}, {83, 32}}</string>
-						<reference key="NSSuperview" ref="762011810"/>
-						<reference key="NSWindow"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSButtonCell" key="NSCell" id="801198731">
-							<int key="NSCellFlags">67108864</int>
-							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Push It</string>
-							<reference key="NSSupport" ref="841938733"/>
-							<string key="NSCellIdentifier">_NS:9</string>
-							<reference key="NSControlView" ref="360288013"/>
-							<int key="NSButtonFlags">-2038284288</int>
-							<int key="NSButtonFlags2">129</int>
-							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent"/>
-							<int key="NSPeriodicDelay">200</int>
-							<int key="NSPeriodicInterval">25</int>
-						</object>
-						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-					</object>
 					<object class="NSTextField" id="570146687">
 						<reference key="NSNextResponder" ref="762011810"/>
 						<int key="NSvFlags">298</int>
 						<string key="NSFrame">{{0, 285}, {320, 17}}</string>
 						<reference key="NSSuperview" ref="762011810"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="360288013"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1505</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="349951696">
@@ -157,14 +133,6 @@
 					<int key="connectionID">20</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">pushItButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="360288013"/>
-					</object>
-					<int key="connectionID">32</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">pushIt:</string>
 						<reference key="source" ref="1001"/>
@@ -204,7 +172,6 @@
 						<reference key="object" ref="762011810"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="570146687"/>
-							<reference ref="360288013"/>
 							<reference ref="496840158"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -221,19 +188,6 @@
 						<int key="objectID">12</int>
 						<reference key="object" ref="349951696"/>
 						<reference key="parent" ref="570146687"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">30</int>
-						<reference key="object" ref="360288013"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="801198731"/>
-						</array>
-						<reference key="parent" ref="762011810"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">31</int>
-						<reference key="object" ref="801198731"/>
-						<reference key="parent" ref="360288013"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">33</int>
@@ -258,8 +212,6 @@
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="13.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
