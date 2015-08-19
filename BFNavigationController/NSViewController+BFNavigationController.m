@@ -11,15 +11,15 @@
 
 @implementation NSViewController (BFNavigationController)
 
--(BFNavigationController*) bfNavigationController {
-
+-(BFNavigationController *)navigationController
+{
     NSViewController * viewController;
 
     do {
         viewController = self.parentViewController;
     } while(viewController.parentViewController);
 
-    return [viewController isKindOfClass:[BFNavigationController class]] ? (BFNavigationController*) viewController : nil;
+    return [viewController isKindOfClass: [BFNavigationController class]] ? (BFNavigationController*) viewController : nil;
 
 }
 

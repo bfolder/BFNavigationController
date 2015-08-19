@@ -8,9 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @class BFNavigationController;
 
 @interface NSViewController (BFNavigationController)
-@property (nonatomic, readonly, weak) BFNavigationController *bfNavigationController;
+
+///---------------------------------------------------------------------------------------
+/// @name Accessing the navigation controller.
+///---------------------------------------------------------------------------------------
+
+@property (nonatomic, readonly, weak) BFNavigationController *navigationController;
+
 @end
