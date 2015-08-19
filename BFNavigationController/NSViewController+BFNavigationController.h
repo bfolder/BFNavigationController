@@ -16,6 +16,6 @@
 /// @name Accessing the navigation controller.
 ///---------------------------------------------------------------------------------------
 
-@property (nonatomic, readonly, weak) BFNavigationController *navigationController;
+@property (nonatomic, weak) BFNavigationController *navigationController;
 
 @end

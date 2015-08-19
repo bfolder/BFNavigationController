@@ -8,19 +8,25 @@
 
 #import "BFNavigationController.h"
 #import "NSViewController+BFNavigationController.h"
+#import <objc/runtime.h>
 
 @implementation NSViewController (BFNavigationController)
 
+static const void *BFNavigationControllerKey = &BFNavigationControllerKey;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void)setNavigationController: (BFNavigationController *)navigationController
+{
+    objc_setAssociatedObject(self, BFNavigationControllerKey, navigationController, OBJC_ASSOCIATION_ASSIGN);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 -(BFNavigationController *)navigationController
 {
-    NSViewController * viewController;
-
-    do {
-        viewController = self.parentViewController;
-    } while(viewController.parentViewController);
-
-    return [viewController isKindOfClass: [BFNavigationController class]] ? (BFNavigationController*) viewController : nil;
-
+    return objc_getAssociatedObject(self, BFNavigationControllerKey);
 }
 
 @end
