@@ -17,15 +17,13 @@ static const void *BFNavigationControllerKey = &BFNavigationControllerKey;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
--(void)setNavigationController: (BFNavigationController *)navigationController
-{
+- (void)setNavigationController:(BFNavigationController *)navigationController {
     objc_setAssociatedObject(self, BFNavigationControllerKey, navigationController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
--(BFNavigationController *)navigationController
-{
+- (BFNavigationController *)navigationController {
     return objc_getAssociatedObject(self, BFNavigationControllerKey);
 }
 

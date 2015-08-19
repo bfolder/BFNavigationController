@@ -12,8 +12,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
--(NSImage *)flattenWithSubviews
-{
+- (NSImage *)flattenWithSubviews {
     NSRect bounds = self.bounds;
     NSSize size = bounds.size;
     NSRect fBounds = bounds;
@@ -26,8 +25,7 @@
     NSScrollView *hScrollView = self.enclosingScrollView;
      
     // Check if there is an enclosing scrollview
-    if(hScrollView) 
-    {
+    if (hScrollView) {
         NSPoint botLeft;
         botLeft.x = NSMinX(hScrollView.bounds);
         botLeft.y = hScrollView.isFlipped ? NSMaxY(hScrollView.bounds) : NSMinY(hScrollView.bounds);
@@ -40,13 +38,13 @@
     fBounds.size.height += offset.x;
     
     NSSize fSize = fBounds.size;
-    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect: fBounds];
-    [bitmapRep setSize: fSize];
-    [self cacheDisplayInRect: fBounds toBitmapImageRep: bitmapRep];
+    NSBitmapImageRep *bitmapRep = [self bitmapImageRepForCachingDisplayInRect:fBounds];
+    [bitmapRep setSize:fSize];
+    [self cacheDisplayInRect:fBounds toBitmapImageRep:bitmapRep];
     
-    NSImage *image = [[NSImage alloc] initWithSize: size];
+    NSImage *image = [[NSImage alloc] initWithSize:size];
     [image lockFocus];
-    [bitmapRep drawAtPoint: fBounds.origin];
+    [bitmapRep drawAtPoint:fBounds.origin];
     [image unlockFocus];
     bitmapRep = nil;
     

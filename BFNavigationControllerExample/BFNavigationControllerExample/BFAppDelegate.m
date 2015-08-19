@@ -12,76 +12,66 @@
 #import "TestView.h"
 #import "NSViewController+BFNavigationController.h"
 
-@implementation BFAppDelegate
-{
+@implementation BFAppDelegate {
     BFNavigationController *_navigationController;
     NSWindowController *_controlWindowController;
 }
 
-@synthesize window = _window;
-
--(void)applicationDidFinishLaunching: (NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // First view controller
-    TestViewController *controller = [[TestViewController alloc] initWithNibName: @"TestViewController" bundle: nil];
-    [controller setTitle: @"View Controller #1"];
+    TestViewController *controller = [[TestViewController alloc] initWithNibName:@"TestViewController" bundle:nil];
+    [controller setTitle:@"View Controller #1"];
     
     // Init navigation controller and add to window
-    _navigationController = [[BFNavigationController alloc] initWithFrame: NSMakeRect(0, 0, self.window.frame.size.width, self.window.frame.size.height) 
-                                                       rootViewController: controller];
+    _navigationController = [[BFNavigationController alloc] initWithFrame:NSMakeRect(0, 0, self.window.frame.size.width, self.window.frame.size.height)
+                                                       rootViewController:controller];
     
-    [_window.contentView addSubview: _navigationController.view];
+    [_window.contentView addSubview:_navigationController.view];
     
     // Control window
-    _controlWindowController = [[NSWindowController alloc] initWithWindowNibName: @"ControlWindow"];
-    [_controlWindowController performSelector: @selector(showWindow:) withObject: nil afterDelay: 0.5];
+    _controlWindowController = [[NSWindowController alloc] initWithWindowNibName:@"ControlWindow"];
+    [_controlWindowController performSelector:@selector(showWindow:) withObject:nil afterDelay:0.5];
 }
 
--(IBAction)pushNewController: (id)sender
-{
+- (IBAction)pushNewController:(id)sender {
     NSArray *subviews = [sender superview].subviews;
-    BOOL animated = [(NSButton *)[subviews objectAtIndex: [subviews count] - 1] state];
+    BOOL animated = [(NSButton *)[subviews objectAtIndex:[subviews count] - 1] state];
     
     TestViewController *controller = [[TestViewController alloc] initWithNibName: @"TestViewController" bundle: nil];
-    [controller setTitle: [NSString stringWithFormat: @"View Controller #%i", [_navigationController.viewControllers count] + 1]];
+    [controller setTitle: [NSString stringWithFormat:@"View Controller #%lu", [_navigationController.viewControllers count] + 1]];
     NSColor *color = [NSColor colorWithCalibratedRed:(arc4random() % 255) / 255.0 green:(arc4random() % 255) / 255.0 blue:(arc4random() % 255) / 255.0 alpha: 1.0];
-    [((TestView *)controller.view) setBackgroundColor: color];
+    [((TestView *)controller.view) setBackgroundColor:color];
     
-    [((NSViewController *)_navigationController.viewControllers[0]).navigationController pushViewController: controller animated: animated];
+    [((NSViewController *)_navigationController.viewControllers[0]).navigationController pushViewController:controller animated:animated];
 }
 
--(IBAction)popController: (id)sender
-{
+- (IBAction)popController: (id)sender {
     NSArray *subviews = [sender superview].subviews;
-    BOOL animated = [(NSButton *)[subviews objectAtIndex: [subviews count] - 1] state];
+    BOOL animated = [(NSButton *)[subviews objectAtIndex:[subviews count] - 1] state];
     
-    [_navigationController popViewControllerAnimated: animated];
+    [_navigationController popViewControllerAnimated:animated];
 }
 
--(IBAction)popToRootController: (id)sender
-{
+- (IBAction)popToRootController:(id)sender {
     NSArray *subviews = [sender superview].subviews;
-    BOOL animated = [(NSButton *)[subviews objectAtIndex: [subviews count] - 1] state];
-    
-    [_navigationController popToRootViewControllerAnimated: animated];
+    BOOL animated = [(NSButton *)[subviews objectAtIndex:[subviews count] - 1] state];
+    [_navigationController popToRootViewControllerAnimated:animated];
 }
 
--(IBAction)newStack: (id)sender
-{
+- (IBAction)newStack:(id)sender {
     NSArray *subviews = [sender superview].subviews;
-    BOOL animated = [(NSButton *)[subviews objectAtIndex: [subviews count] - 1] state];
+    BOOL animated = [(NSButton *)[subviews objectAtIndex:[subviews count] - 1] state];
         
     NSMutableArray *newControllers = [NSMutableArray array];
-    for(uint i = 0; i < 6; i++) 
-    {
-        TestViewController *controller = [[TestViewController alloc] initWithNibName: @"TestViewController" bundle: nil];
-        [controller setTitle: [NSString stringWithFormat: @"View Controller #%i", i + 1]];
+    for (uint i = 0; i < 6; i++) {
+        TestViewController *controller = [[TestViewController alloc] initWithNibName:@"TestViewController" bundle:nil];
+        [controller setTitle: [NSString stringWithFormat:@"View Controller #%i", i + 1]];
         NSColor *color = [NSColor colorWithCalibratedRed:(arc4random() % 255) / 255.0 green:(arc4random() % 255) / 255.0 blue:(arc4random() % 255) / 255.0 alpha: 1.0];
-        [((TestView *)controller.view) setBackgroundColor: color];
-        [newControllers addObject: controller];
+        [((TestView *)controller.view) setBackgroundColor:color];
+        [newControllers addObject:controller];
     }
     
-    [_navigationController setViewControllers: newControllers animated: animated];
+    [_navigationController setViewControllers:newControllers animated:animated];
 }
 
 @end

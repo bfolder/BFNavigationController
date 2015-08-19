@@ -10,10 +10,7 @@
 
 @implementation TestView
 
-@synthesize backgroundColor = _backgroundColor;
-
--(void)drawRect: (NSRect)dirtyRect
-{
+- (void)drawRect:(NSRect)dirtyRect {
     NSColor *color = _backgroundColor ?: [NSColor whiteColor];
     [color setFill];
     NSRectFill(dirtyRect);

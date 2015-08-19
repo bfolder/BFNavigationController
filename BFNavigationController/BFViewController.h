@@ -18,21 +18,21 @@
 /**
  *  Notifies the view controller that its view is about to be added to a view hierarchy.
  */
--(void)viewWillAppear: (BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
 
 /**
  *  Notifies the view controller that its view was added to a view hierarchy.
  */
--(void)viewDidAppear: (BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
 
 /**
  *  Notifies the view controller that its view is about to be removed from a view hierarchy.
  */
--(void)viewWillDisappear: (BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 
 /**
  *  Notifies the view controller that its view was removed from a view hierarchy.
  */
--(void)viewDidDisappear: (BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
 
 @end

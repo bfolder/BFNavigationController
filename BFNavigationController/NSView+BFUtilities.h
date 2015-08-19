@@ -16,6 +16,6 @@
 /**
  *  Flatten self + subviews, return proper NSImage.
  */
--(NSImage *)flattenWithSubviews;
+- (NSImage *)flattenWithSubviews;
 
 @end

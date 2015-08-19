@@ -10,6 +10,6 @@
 
 @interface TestView : NSView
 
-@property (nonatomic, strong)NSColor *backgroundColor;
+@property (nonatomic, strong) NSColor *backgroundColor;
 
 @end
