@@ -1,7 +1,7 @@
 //
 //  BFNavigationController.m
 //
-//  Created by Heiko Dreyer on 26.04.12.
+//  Created by Heiko Dreyer on 04/26/12.
 //  Copyright (c) 2012 boxedfolder.com. All rights reserved.
 //
 

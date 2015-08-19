@@ -2,7 +2,7 @@
 //  TestViewController.h
 //  BFNavigationControllerExample
 //
-//  Created by Heiko Dreyer on 27.04.12.
+//  Created by Heiko Dreyer on 04/27/12.
 //  Copyright (c) 2012 boxedfolder.com. All rights reserved.
 //
 

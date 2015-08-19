@@ -2,8 +2,8 @@
 //  main.m
 //  BFNavigationControllerExample
 //
-//  Created by Heiko Dreyer on 26.04.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Heiko Dreyer on 04/26/12.
+//  Copyright (c) 2012 boxedfolder.com. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
