@@ -12,5 +12,5 @@
 @class BFNavigationController;
 
 @interface NSViewController (BFNavigationController)
-@property (nonatomic, readonly, weak) BFNavigationController *bfNavigationController;
+@property (nonatomic, readonly, assign) BFNavigationController *navigationController;
 @end

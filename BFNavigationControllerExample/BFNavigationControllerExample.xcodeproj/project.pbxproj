@@ -19,7 +19,6 @@
 		60E69435154AC727002B145F /* ControlWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60E69434154AC727002B145F /* ControlWindow.xib */; };
 		FAB79EB31B7A65280064BAF1 /* BFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB79EAF1B7A65280064BAF1 /* BFNavigationController.m */; };
 		FAB79EB41B7A65280064BAF1 /* NSView+BFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB79EB21B7A65280064BAF1 /* NSView+BFUtilities.m */; };
-		FAB79EB71B7A6F790064BAF1 /* NSViewController+BFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB79EB61B7A6F790064BAF1 /* NSViewController+BFNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +47,6 @@
 		FAB79EB11B7A65280064BAF1 /* NSView+BFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+BFUtilities.h"; path = "../../BFNavigationController/NSView+BFUtilities.h"; sourceTree = "<group>"; };
 		FAB79EB21B7A65280064BAF1 /* NSView+BFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+BFUtilities.m"; path = "../../BFNavigationController/NSView+BFUtilities.m"; sourceTree = "<group>"; };
 		FAB79EB51B7A6F790064BAF1 /* NSViewController+BFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSViewController+BFNavigationController.h"; path = "../../BFNavigationController/NSViewController+BFNavigationController.h"; sourceTree = "<group>"; };
-		FAB79EB61B7A6F790064BAF1 /* NSViewController+BFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSViewController+BFNavigationController.m"; path = "../../BFNavigationController/NSViewController+BFNavigationController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +136,6 @@
 				FAB79EB11B7A65280064BAF1 /* NSView+BFUtilities.h */,
 				FAB79EB21B7A65280064BAF1 /* NSView+BFUtilities.m */,
 				FAB79EB51B7A6F790064BAF1 /* NSViewController+BFNavigationController.h */,
-				FAB79EB61B7A6F790064BAF1 /* NSViewController+BFNavigationController.m */,
 			);
 			name = BFNavigationController;
 			sourceTree = "<group>";
@@ -216,7 +213,6 @@
 				60E6942A154ABFB4002B145F /* TestViewController.m in Sources */,
 				FAB79EB41B7A65280064BAF1 /* NSView+BFUtilities.m in Sources */,
 				60E69433154AC2E6002B145F /* TestView.m in Sources */,
-				FAB79EB71B7A6F790064BAF1 /* NSViewController+BFNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
