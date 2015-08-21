@@ -8,8 +8,37 @@
 #import "BFNavigationController.h"
 #import "BFViewController.h"
 #import "NSView+BFUtilities.h"
+#import "NSViewController+BFNavigationController.h"
+#import <objc/runtime.h>
 
 static const CGFloat kPushPopAnimationDuration = 0.2;
+static void * const BFNavigationController_navigationController = (void*)&BFNavigationController_navigationController;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+@implementation NSViewController (BFNavigationController)
+
+-(BFNavigationController*) navigationController {
+    return objc_getAssociatedObject(self, BFNavigationController_navigationController);
+}
+
+@end
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface NSViewController (BFNavigationControllerMutability)
+
+@property (nonatomic, readonly, assign) BFNavigationController *navigationController;
+
+@end
+
+@implementation NSViewController (BFNavigationControllerMutability)
+
+-(void) setNavigationController:(BFNavigationController *)navigationController {
+    objc_setAssociatedObject(self, BFNavigationController_navigationController, navigationController, OBJC_ASSOCIATION_ASSIGN);
+}
+
+@end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +62,13 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 @synthesize delegate = _delegate;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+-(void) dealloc {
+    for (NSViewController *viewController in _viewControllers) {
+        viewController.navigationController = nil;
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Init Methods
@@ -61,6 +97,13 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         
         _viewControllers = [NSMutableArray array];
         [_viewControllers addObject: controller];
+        
+        controller.navigationController = self;
+        
+        if ([self respondsToSelector:@selector(addChildViewController:)]) {
+            [self addChildViewController:controller];
+        }
+
         controller.view.autoresizingMask = self.view.autoresizingMask;
         controller.view.frame = self.view.bounds;
         [self.view addSubview: controller.view];
@@ -68,6 +111,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         // Initial controller will appear on startup
         if([controller respondsToSelector: @selector(viewWillAppear:)])
             [(id<BFViewController>)controller viewWillAppear: NO];
+
     }
     
     return self;
@@ -125,9 +169,20 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     BOOL push = !([_viewControllers containsObject: newTopmostController] && [_viewControllers indexOfObject: newTopmostController] < [_viewControllers count] - 1);
     
     _viewControllers = [controllers mutableCopy];
+
+    for (NSViewController* viewController in _viewControllers) {
     
+        viewController.navigationController = self;
+    
+        if ([self respondsToSelector:@selector(addChildViewController:)]) {
+            [self addChildViewController:viewController];
+        }
+
+    }
+
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: newTopmostController animated: animated push: push];
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,11 +279,19 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
 
 -(void)pushViewController: (NSViewController *)viewController animated: (BOOL)animated
 {
+
     NSViewController *visibleController = self.visibleViewController;
     [_viewControllers addObject: viewController];
-    
+
+    viewController.navigationController = self;
+
+    if ([self respondsToSelector:@selector(addChildViewController:)]) {
+        [self addChildViewController:viewController];
+    }
+
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: [_viewControllers lastObject] animated: animated push: YES];
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,9 +307,16 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     // Navigate
     [self _navigateFromViewController: controller toViewController: [_viewControllers lastObject] animated: animated push: NO];
+
+    if ([controller respondsToSelector:@selector(removeFromParentViewController)]) {
+        [controller removeFromParentViewController];
+    }
+
+    controller.navigationController = nil;
     
     // Return popping controller
     return controller;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,14 +329,28 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     NSViewController *rootController = [_viewControllers objectAtIndex: 0];
     [_viewControllers removeObject: rootController];
-    NSArray *dispControllers = [NSArray arrayWithArray: _viewControllers];
+    
+    NSRange poppedRange = NSMakeRange(1, [_viewControllers count] - 1);
+    NSArray *dispControllers = [_viewControllers subarrayWithRange:poppedRange];
+
     _viewControllers = [NSMutableArray arrayWithObject: rootController];
     
     // Navigate
     [self _navigateFromViewController: [dispControllers lastObject] toViewController: rootController animated: animated push: NO];
-    
+
+    for (NSViewController * viewController in dispControllers) {
+
+        if ([viewController respondsToSelector:@selector(removeFromParentViewController)]) {
+            [viewController removeFromParentViewController];
+        }
+
+        viewController.navigationController = nil;
+
+    }
+
     // Return popping controller stack
     return dispControllers;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -287,9 +371,21 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     
     // Navigate
     [self _navigateFromViewController: visibleController toViewController: viewController animated: animated push: NO];
-    
+
+    for (NSViewController * viewController in dispControllers) {
+
+        if ([viewController respondsToSelector:@selector(removeFromParentViewController)]) {
+            [viewController removeFromParentViewController];
+            continue;
+        }
+        
+        viewController.navigationController = nil;
+
+    }
+
     // Return popping controller stack
     return dispControllers;
+
 }
 
 @end
