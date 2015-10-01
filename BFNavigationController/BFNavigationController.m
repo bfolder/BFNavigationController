@@ -266,11 +266,9 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     }
     
     NSViewController *rootController = [_viewControllers objectAtIndex:0];
-    [_viewControllers removeObject: rootController];
+    [_viewControllers removeObject:rootController];
     
-    NSRange poppedRange = NSMakeRange(1, [_viewControllers count] - 1);
-    NSArray *dispControllers = [_viewControllers subarrayWithRange:poppedRange];
-
+    NSArray *dispControllers = [NSArray arrayWithArray:_viewControllers];
     _viewControllers = [NSMutableArray arrayWithObject:rootController];
     
     // Navigate
@@ -283,7 +281,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     }
 
     // Return popping controller stack
-    return dispControllers;
+    return [[dispControllers reverseObjectEnumerator] allObjects];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -292,15 +290,14 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *visibleController = self.visibleViewController;
     
     // Don't pop last controller
-    if (![_viewControllers containsObject:viewController] || visibleController == viewController) {
+    if (![_viewControllers containsObject: viewController] || visibleController == viewController)
         return [NSArray array];
-    }
     
-    NSUInteger index = [_viewControllers indexOfObject:viewController];
+    NSUInteger index = [_viewControllers indexOfObject: viewController];
     NSUInteger length = [_viewControllers count] - (index + 1);
     NSRange range = NSMakeRange(index + 1, length);
-    NSArray *dispControllers = [_viewControllers subarrayWithRange:range];
-    [_viewControllers removeObjectsInArray:dispControllers];
+    NSArray *dispControllers = [_viewControllers subarrayWithRange: range];
+    [_viewControllers removeObjectsInArray: dispControllers];
     
     // Navigate
     [self _navigateFromViewController:visibleController toViewController:viewController animated:animated push:NO];
@@ -312,7 +309,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     }
 
     // Return popping controller stack
-    return dispControllers;
+    return [[dispControllers reverseObjectEnumerator] allObjects];
 }
 
 @end
