@@ -44,7 +44,12 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     if (self = [super initWithNibName: nil bundle: nil]) {
         // Create view
         self.view = [[NSView alloc] initWithFrame: aFrame];
-        self.view.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable | NSViewHeightSizable;
+        self.view.autoresizingMask = NSViewMinXMargin |
+                                     NSViewMaxXMargin |
+                                     NSViewMinYMargin |
+                                     NSViewMaxYMargin |
+                                     NSViewWidthSizable |
+                                     NSViewHeightSizable;
         
         // Add dummy controller if none provided
         if (!viewController) {
@@ -116,7 +121,8 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *newTopmostController = [controllers lastObject];
     
     // Decide if pop or push - If visible controller already in new stack, but is not topmost, use pop otherwise push
-    BOOL push = !([_viewControllers containsObject:newTopmostController] && [_viewControllers indexOfObject:newTopmostController] < [_viewControllers count] - 1);
+    BOOL push = !([_viewControllers containsObject:newTopmostController] &&
+                  [_viewControllers indexOfObject:newTopmostController] < [_viewControllers count] - 1);
     
     _viewControllers = [controllers mutableCopy];
 
@@ -290,8 +296,9 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
     NSViewController *visibleController = self.visibleViewController;
     
     // Don't pop last controller
-    if (![_viewControllers containsObject: viewController] || visibleController == viewController)
+    if (![_viewControllers containsObject: viewController] || visibleController == viewController) {
         return [NSArray array];
+    }
     
     NSUInteger index = [_viewControllers indexOfObject: viewController];
     NSUInteger length = [_viewControllers count] - (index + 1);
