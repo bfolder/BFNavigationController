@@ -300,11 +300,11 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         return [NSArray array];
     }
     
-    NSUInteger index = [_viewControllers indexOfObject: viewController];
+    NSUInteger index = [_viewControllers indexOfObject:viewController];
     NSUInteger length = [_viewControllers count] - (index + 1);
     NSRange range = NSMakeRange(index + 1, length);
-    NSArray *dispControllers = [_viewControllers subarrayWithRange: range];
-    [_viewControllers removeObjectsInArray: dispControllers];
+    NSArray *dispControllers = [_viewControllers subarrayWithRange:range];
+    [_viewControllers removeObjectsInArray:dispControllers];
     
     // Navigate
     [self _navigateFromViewController:visibleController toViewController:viewController animated:animated push:NO];
