@@ -142,10 +142,7 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
                    toViewController:(NSViewController *)newController
                            animated:(BOOL)animated
                                push:(BOOL)push
-{
-    NSRect newControllerStartFrame = self.view.bounds;
-    NSRect lastControllerEndFrame = self.view.bounds;
-    
+{ 
     newController.view.autoresizingMask = self.view.autoresizingMask;
     
     // Call delegate
@@ -163,6 +160,9 @@ static const CGFloat kPushPopAnimationDuration = 0.2;
         [(id<BFViewController>)lastController viewWillDisappear:animated];
     }
     
+    NSRect newControllerStartFrame = self.view.bounds;
+    NSRect lastControllerEndFrame = self.view.bounds;
+
     // Completion inline Block
     void(^navigationCompleted)(BOOL) = ^(BOOL animated) {
         // Call delegate
