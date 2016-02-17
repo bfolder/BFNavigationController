@@ -8,6 +8,7 @@
 #import "BFNavigationController.h"
 #import "BFViewController.h"
 #import "NSView+BFUtilities.h"
+#import "NSViewController+BFNavigationController.h"
 
 static const CGFloat kPushPopAnimationDuration = 0.2;
 
