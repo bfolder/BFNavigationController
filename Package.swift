@@ -5,7 +5,7 @@ import PackageDescription
  let package = Package(
      name: "BFNavigationController",
      platforms: [
-         .macOS(.v10_7)
+         .macOS(.v10_10)
      ],
      products: [
          .library(
